@@ -32,8 +32,8 @@ from random import randint
 
 # Initialize world
 name = "Cat Fun. Press the mouse (but not too fast)!"
-width = 750
-height = 750
+width = 500
+height = 500
 rw.newDisplay(width, height, name)
 
 ################################################################
@@ -90,8 +90,8 @@ def handleEvent(state, event):
 #    print("Handling event: " + str(event))
     if (event.type == pg.MOUSEBUTTONDOWN):
         color = (randint(0, 255), randint(0, 255), randint(0, 255))
-        newState1 = randint(-5,5)
-        newState3 = randint(-5,5)
+        newState1 = randint(-3,3)
+        newState3 = randint(-3,3)
         return((state[0],newState1,state[2],newState3))
     else:
         return(state)
@@ -103,7 +103,7 @@ def handleEvent(state, event):
 
 # The cat starts at a random point moving in a random direction in
 # both x and y directions
-initState = (375,(randint(-5,5)),375,(randint(-5,5)))
+initState = (250,(randint(-3,3)),250,(randint(-3,3)))
 
 # Run the simulation no faster than 60 frames per second
 frameRate = 60
