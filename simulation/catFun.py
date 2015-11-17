@@ -32,21 +32,22 @@ from random import randint
 
 # Initialize world
 name = "Cat Fun. Press the mouse (but not too fast)!"
-width = 500
-height = 500
+width = 750
+height = 750
 rw.newDisplay(width, height, name)
 
 ################################################################
 
 # Display the state by drawing a cat at that x coordinate
 myimage = dw.loadImage("cat.bmp")
+color = (randint(0,255), randint(0,255), randint(0,255))
 
 # state -> image (IO)
 # draw the cat halfway up the screen (height/2) and at the x
 # coordinate given by the first component of the state tuple
 #
 def updateDisplay(state):
-    dw.fill(dw.black)
+    dw.fill(color)
     dw.draw(myimage, (state[0], state[2]))
 
 
@@ -72,7 +73,6 @@ def endState(state):
     else:
         return False
 
-
 ################################################################
 
 # We handle each event by printing (a serialized version of) it on the console
@@ -89,18 +89,20 @@ def endState(state):
 def handleEvent(state, event):  
 #    print("Handling event: " + str(event))
     if (event.type == pg.MOUSEBUTTONDOWN):
-       newState1 = randint(-3,3)
-       newState3 = randint(-3,3)
-       return((state[0],newState1,state[2],newState3))
+        color = (randint(0,255), randint(0,255), randint(0,255))
+        newState1 = randint(-3,3)
+        newState3 = randint(-3,3)
+        return((state[0],newState1,state[2],newState3))
     else:
         return(state)
+    
 
 ################################################################
 
 # World state will be single x coordinate at left edge of world
 
 # The cat starts at the left, moving right 
-initState = ((randint(100,400)),(randint(-3,3)),(randint(100,400)),(randint(-3,3)))
+initState = ((randint(100,650)),(randint(-5,5)),(randint(100,650)),(randint(-5,5)))
 
 # Run the simulation no faster than 60 frames per second
 frameRate = 60
