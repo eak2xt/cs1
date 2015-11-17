@@ -43,8 +43,7 @@ myimage = dw.loadImage("cat.bmp")
 color = (randint(0,255), randint(0,255), randint(0,255))
 
 # state -> image (IO)
-# draw the cat halfway up the screen (height/2) and at the x
-# coordinate given by the first component of the state tuple
+# draw the cat at a point determined by the state tuple
 #
 def updateDisplay(state):
     dw.fill(color)
@@ -64,8 +63,9 @@ def updateState(state):
 
 ################################################################
 
-# Terminate the simulation when the x coord reaches the screen edge,
+# Terminate the simulation when the x coord or y coord reaches the screen edge,
 # that is, when pos is less then zero or greater than the screen width
+# or height
 # state -> bool
 def endState(state):
     if ((state[0] > width or state[0] < 0) or (state[2] > height or state[2] < 0)):
@@ -89,8 +89,9 @@ def endState(state):
 def handleEvent(state, event):  
 #    print("Handling event: " + str(event))
     if (event.type == pg.MOUSEBUTTONDOWN):
-        newState1 = randint(-3,3)
-        newState3 = randint(-3,3)
+        color = (randint(0, 255), randint(0, 255), randint(0, 255))
+        newState1 = randint(-5,5)
+        newState3 = randint(-5,5)
         return((state[0],newState1,state[2],newState3))
     else:
         return(state)
@@ -98,10 +99,11 @@ def handleEvent(state, event):
 
 ################################################################
 
-# World state will be single x coordinate at left edge of world
+# World state will be image at random point
 
-# The cat starts at the left, moving right 
-initState = ((randint(100,650)),(randint(-5,5)),(randint(100,650)),(randint(-5,5)))
+# The cat starts at a random point moving in a random direction in
+# both x and y directions
+initState = (375,(randint(-5,5)),375,(randint(-5,5)))
 
 # Run the simulation no faster than 60 frames per second
 frameRate = 60
