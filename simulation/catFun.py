@@ -31,7 +31,7 @@ from random import randint
 ################################################################
 
 # Initialize world
-name = "Cat Fun. Press the mouse (but not too fast)!"
+name = "Colorific Cat & Dog Fun!"
 width = 500
 height = 500
 rw.newDisplay(width, height, name)
@@ -39,15 +39,18 @@ rw.newDisplay(width, height, name)
 ################################################################
 
 # Display the state by drawing a cat at that x coordinate
-myimage = dw.loadImage("cat.bmp")
+catimage = dw.loadImage("cat.bmp")
+pugimage = dw.loadImage("pug.bmp")
 color = (randint(0,255), randint(0,255), randint(0,255))
+
 
 # state -> image (IO)
 # draw the cat at a point determined by the state tuple
 #
 def updateDisplay(state):
     dw.fill(color)
-    dw.draw(myimage, (state[0], state[2]))
+    dw.draw(catimage, (state[0], state[2]))
+    dw.draw(pugimage, (state[0], state[2]))
 
 
 ################################################################
@@ -103,7 +106,7 @@ def handleEvent(state, event):
 
 # The cat starts at a random point moving in a random direction in
 # both x and y directions
-initState = (250,(randint(-3,3)),250,(randint(-3,3)))
+initState = (200,(randint(-3,3)),200,(randint(-3,3)))
 
 # Run the simulation no faster than 60 frames per second
 frameRate = 60
