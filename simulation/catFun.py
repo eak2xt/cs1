@@ -50,7 +50,7 @@ color = (randint(0,255), randint(0,255), randint(0,255))
 def updateDisplay(state):
     dw.fill(color)
     dw.draw(catimage, (state[0], state[2]))
-    dw.draw(pugimage, (state[0], state[2]))
+    dw.draw(pugimage, (state[4], state[6]))
 
 
 ################################################################
@@ -62,7 +62,7 @@ def updateDisplay(state):
 #
 # state -> state
 def updateState(state):
-    return((state[0]+state[1],state[1],state[2]+state[3],state[3]))
+    return((state[0]+state[1],state[1],state[2]+state[3],state[3],state[4]+state[5],state[5],state[6]+state[7],state[7]))
 
 ################################################################
 
@@ -92,10 +92,15 @@ def endState(state):
 def handleEvent(state, event):  
 #    print("Handling event: " + str(event))
     if (event.type == pg.MOUSEBUTTONDOWN):
-        color = (randint(0, 255), randint(0, 255), randint(0, 255))
+        r = (randint(0, 255))
+        g = (randint(0, 255))
+        b = (randint(0, 255))
+        color = (r, g, b)
         newState1 = randint(-3,3)
         newState3 = randint(-3,3)
-        return((state[0],newState1,state[2],newState3))
+        newState5 = randint(-3,3)
+        newState7 = randint(-3,3)
+        return(state[0],newState1,state[2],newState3,state[4],newState5,state[6],newState7)
     else:
         return(state)
     
@@ -106,7 +111,7 @@ def handleEvent(state, event):
 
 # The cat starts at a random point moving in a random direction in
 # both x and y directions
-initState = (200,(randint(-3,3)),200,(randint(-3,3)))
+initState = (200,(randint(-3,3)),200,(randint(-3,3)),400,(randint(-3, 3)), 400, (randint(-3,3)))
 
 # Run the simulation no faster than 60 frames per second
 frameRate = 60
