@@ -62,6 +62,18 @@ def updateDisplay(state):
 #
 # state -> state
 def updateState(state):
+    if (state[4] > 370):
+        newState5s = randint(-3,-1)
+        return(state[0]+state[1],state[1],state[2]+state[3],state[3],state[4]+newState5s,newState5s,state[6]+state[7],state[7])
+    if (state[6] > 370):
+        newState7s = randint(-3,-1)
+        return(state[0]+state[1],state[1],state[2]+state[3],state[3],state[4]+state[5],state[5],state[6]+newState7s,newState7s)
+    if (state[4] < 0):
+        newState5ss = randint(1,3)
+        return(state[0]+state[1],state[1],state[2]+state[3],state[3],state[4]+newState5ss,newState5ss,state[6]+state[7],state[7])
+    if (state[6] < 0):
+        newState7ss = randint(1,3)
+        return(state[0]+state[1],state[1],state[2]+state[3],state[3],state[4]+state[5],state[5],state[6]+newState7ss,newState7ss)
     return((state[0]+state[1],state[1],state[2]+state[3],state[3],state[4]+state[5],state[5],state[6]+state[7],state[7]))
 
 ################################################################
@@ -101,14 +113,6 @@ def handleEvent(state, event):
         newState5 = randint(-3,3)
         newState7 = randint(-3,3)
         return(state[0],newState1,state[2],newState3,state[4],newState5,state[6],newState7)
-    if ((state[4] > 400) or (state[6] > 400)):
-        newState5s = randint(-3,-1)
-        newState7s = randint(-3,-1)
-        return(state[0],state[1],state[2],state[3],state[4],newState5s,state[6],newState7s) 
-    if ((state[4] < 0) or (state[6] < 0)):
-        newState5ss = randint(1,3)
-        newState7ss = randint(1,3)
-        return(state[0],state[1],state[2],state[3],state[4],newState5ss,state[6],newState7ss)    
     else:
         return(state)
     
