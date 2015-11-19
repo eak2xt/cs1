@@ -32,8 +32,8 @@ from random import randint
 
 # Initialize world
 name = "Colorific Cat & Dog Fun!"
-width = 500
-height = 500
+width = 750
+height = 750
 rw.newDisplay(width, height, name)
 
 ################################################################
@@ -62,10 +62,10 @@ def updateDisplay(state):
 #
 # state -> state
 def updateState(state):
-    if (state[4] > 370):
+    if (state[4] > 720):
         newState5s = randint(-3,-1)
         return(state[0]+state[1],state[1],state[2]+state[3],state[3],state[4]+newState5s,newState5s,state[6]+state[7],state[7])
-    if (state[6] > 370):
+    if (state[6] > 720):
         newState7s = randint(-3,-1)
         return(state[0]+state[1],state[1],state[2]+state[3],state[3],state[4]+state[5],state[5],state[6]+newState7s,newState7s)
     if (state[4] < 0):
@@ -83,7 +83,7 @@ def updateState(state):
 # or height
 # state -> bool
 def endState(state):
-    if ((state[0] > 400 or state[0] < 0) or (state[2] > 400 or state[2] < 0)):
+    if ((state[0] > 650 or state[0] < 0) or (state[2] > 650 or state[2] < 0) or ((state[0] == state[4]) and (state[2] == state[6]))):
         return True
     else:
         return False
