@@ -62,10 +62,10 @@ def updateDisplay(state):
 #
 # state -> state
 def updateState(state):
-    if (state[4] > 625):
+    if (state[4] > 622):
         newState5s = randint(-3,-1)
         return(state[0]+state[1],state[1],state[2]+state[3],state[3],state[4]+newState5s,newState5s,state[6]+state[7],state[7])
-    if (state[6] > 625):
+    if (state[6] > 622):
         newState7s = randint(-3,-1)
         return(state[0]+state[1],state[1],state[2]+state[3],state[3],state[4]+state[5],state[5],state[6]+newState7s,newState7s)
     if (state[4] < 0):
@@ -83,7 +83,7 @@ def updateState(state):
 # or height
 # state -> bool
 def endState(state):
-    if ((state[0] > 625 or state[0] < 0) or (state[2] > 625 or state[2] < 0) or ((state[0] == state[4] + 125) or (state[2] == state[6] + 125) or (state[0] + 125 == state[4]) or (state[2] + 125 == state[6]))):
+    if ((state[0] > 622 or state[0] < 0) or (state[2] > 622 or state[2] < 0)) or (((state[0] == state[4] + 128) and (state[2]-128 < state[6] < state[2] + 128)) or ((state[2] == state[6] + 128) and (state[0]-128 < state[4] < state[0] + 128)) or ((state[0] + 128 == state[4]) and (state[2]-128 < state[6] < state[2] + 128)) or ((state[2] + 128 == state[6]) and (state[0]-128 < state[4] < state[0] + 128))):
         return True
     else:
         return False
@@ -123,7 +123,7 @@ def handleEvent(state, event):
 
 # The cat starts at a random point moving in a random direction in
 # both x and y directions
-initState = (200,(randint(-3,3)),200,(randint(-3,3)),300,(randint(-3, 3)), 300, (randint(-3,3)))
+initState = (300,(randint(-3,3)),300,(randint(-3,3)),600,(randint(-3, 3)), 600, (randint(-3,3)))
 
 # Run the simulation no faster than 60 frames per second
 frameRate = 60
