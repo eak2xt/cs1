@@ -39,7 +39,7 @@ rw.newDisplay(width, height, name)
 ################################################################
 
 # Display the state by drawing a cat at that x coordinate
-catimage = dw.loadImage("cat.bmp")
+catimage = dw.loadImage("grumpycat.bmp")
 pugimage = dw.loadImage("pug.bmp")
 color = (randint(0,255), randint(0,255), randint(0,255))
 
@@ -83,7 +83,7 @@ def updateState(state):
 # or height
 # state -> bool
 def endState(state):
-    if ((state[0] > 650 or state[0] < 0) or (state[2] > 650 or state[2] < 0) or ((state[0] == state[4]) and (state[2] == state[6]))):
+    if ((state[0] > 625 or state[0] < 0) or (state[2] > 625 or state[2] < 0) or ((state[0] == state[4] + 125) or (state[2] == state[6] + 125) or (state[0] + 125 == state[4]) or (state[2] + 125 == state[6]))):
         return True
     else:
         return False
