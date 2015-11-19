@@ -62,10 +62,10 @@ def updateDisplay(state):
 #
 # state -> state
 def updateState(state):
-    if (state[4] > 720):
+    if (state[4] > 625):
         newState5s = randint(-3,-1)
         return(state[0]+state[1],state[1],state[2]+state[3],state[3],state[4]+newState5s,newState5s,state[6]+state[7],state[7])
-    if (state[6] > 720):
+    if (state[6] > 625):
         newState7s = randint(-3,-1)
         return(state[0]+state[1],state[1],state[2]+state[3],state[3],state[4]+state[5],state[5],state[6]+newState7s,newState7s)
     if (state[4] < 0):
