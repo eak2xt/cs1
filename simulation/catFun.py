@@ -83,7 +83,7 @@ def updateState(state):
 # or height
 # state -> bool
 def endState(state):
-    if ((state[0] > 622 or state[0] < 0) or (state[2] > 622 or state[2] < 0)) or (((state[0] == state[4] + 128) and (state[2]-128 <= state[6] <= state[2] + 128)) or ((state[2] == state[6] + 128) and (state[0]-128 <= state[4] <= state[0] + 128)) or ((state[0] + 128 == state[4]) and (state[2]-128 <= state[6] <= state[2] + 128)) or ((state[2] + 128 == state[6]) and (state[0]-128 <= state[4] <= state[0] + 128))):
+    if ((state[0] > 622 or state[0] < 0) or (state[2] > 622 or state[2] < 0)) or (((state[4] <= state[0] <= state[4] + 128) and (state[2]-128 <= state[6] <= state[2] + 128)) or ((state[6] <= state[2] <= state[6] + 128) and (state[0]-128 <= state[4] <= state[0] + 128)) or ((state[4] <= state[0] + 128 <= state[4] + 128) and (state[2]-128 <= state[6] <= state[2] + 128)) or ((state[6] <= state[2] + 128 <= state[6] + 128) and (state[0]-128 <= state[4] <= state[0] + 128))):
         return True
     else:
         return False
