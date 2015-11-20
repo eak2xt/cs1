@@ -85,12 +85,17 @@ def updateState(state):
 
 # Terminate the simulation when the x coord or y coord reaches the screen edge,
 # that is, when pos is less then zero or greater than the screen width
-# or height, or when the cat and the pug collide.
+# or height, or when the cat and the pug collide. If the cat survived
+# for less than 25 seconds, the program is not impressed. If the cat
+# survived for longer, then good job!
 # state -> bool
 def endState(state):
     if ((state[0] > 622 or state[0] < 0) or (state[2] > 622 or state[2] < 0)) or (((state[4] <= state[0] <= state[4] + 128) and (state[2]-128 <= state[6] <= state[2] + 128)) or ((state[6] <= state[2] <= state[6] + 128) and (state[0]-128 <= state[4] <= state[0] + 128)) or ((state[4] <= state[0] + 128 <= state[4] + 128) and (state[2]-128 <= state[6] <= state[2] + 128)) or ((state[6] <= state[2] + 128 <= state[6] + 128) and (state[0]-128 <= state[4] <= state[0] + 128))):
         stop = time.time()
-        print("You only let Grumpy Cat survive for", stop-start, "seconds?")
+        if ((stop-start)<25):
+            print("You only let Grumpy Cat survive for", stop-start, "seconds?")
+        else:
+            print("Wow, Grumpy Cat survived for", stop-start, "seconds!")
         return True
     else:
         return False
