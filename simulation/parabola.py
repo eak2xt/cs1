@@ -2,6 +2,7 @@ import runWorld as rw
 import drawWorld as dw
 import pygame as pg
 from random import randint
+import math
 
 ################################################################
 
@@ -75,7 +76,6 @@ def updateState(state):
 # state -> bool
 def endState(state):
     if (state[0] > width or state[0] < 0) or (state[2] > height or state[2] < 0):
-        print("Game over in state ", state)
         return True
     else:
         return False
@@ -97,7 +97,7 @@ def endState(state):
 # on the screen.
 def handleEvent(state, event):  
     if (event.type == pg.MOUSEBUTTONDOWN):
-        return (state)
+        return((900, state[1], 900, state[3], state[4], state[5], state[6]))
     else:
         return(state)
 
