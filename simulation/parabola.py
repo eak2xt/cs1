@@ -21,14 +21,12 @@ rw.newDisplay(width, height, name)
 
 ################################################################
 
-# Display the state by drawing a cat at that x coordinate
+# Display the state by drawing a flying pig at that x coordinate
 myimage = dw.loadImage("flying-pig-clip-art-1741857.bmp")
 
 # state -> image (IO)
-# draw the cat halfway up the screen (height/2) and at the x
-# coordinate given by the first component of the state tuple
+# draw the flying pig at the assigned initial conditions.
 #
-
 
 def updateDisplay(state):
     dw.fill(dw.black)
@@ -37,11 +35,12 @@ def updateDisplay(state):
 
 ################################################################
 
-# Change pos by delta-pos, leaving delta-pos unchanged
-# Note that pos is accessed as state[0], and delta-pos
-# as state[1]. Later on we'll see how to access state
-# components by name (as we saw with records in Idris).
-#
+# Change the y coordinate by the expression (v_y)(t) - (1/2)gt^2 + y_init and x
+# by the expression x(t) + x_init. We can derive these expressions
+# from the definitions of 2D projectile motion. We are assuming
+# negligible drag forces. We do not have to assume negligible torque
+# because the translationl motion will remain the same. However, this
+# display will not show any rotation of the flying pig.
 # state -> state
 
 
@@ -65,33 +64,32 @@ def endState(state):
 
 ################################################################
 
-# We handle each event by printing (a serialized version of) it on the console
-# and by then responding to the event. If the event is not a "mouse button down
-# event" we ignore it by just returning the current state unchanged. Otherwise
-# we return a new state, with pos the same as in the original state, but
-# delta-pos reversed: if the cat was moving right, we update delta-pos so that
-# it moves left, and vice versa. Each mouse down event changes the cat
-# direction. The game is to keep the cat alive by not letting it run off the
-# edge of the screen.
-#
+
 # state -> event -> state
-# Stops the simulation and lists the physical parameters in question
+# Lists the r (position) vector with magnitude and direction
 # on the screen.
 def handleEvent(state, event):  
     if (event.type == pg.MOUSEBUTTONDOWN):
-        print("Your y velocity is " + state)
-        return((900, state[1], 900, state[3], state[4], state[5], state[6]))
+        addSq = math.pow(state[0],2) + math.pow(state[2],2)
+        position = height - (math.sqrt(addSq))
+        angle = math.atan(state[2]/state[0])
+        angleDeg = angle * (180/3.14)
+        print("Your position is ", str(position), " at an angle, in degrees, of ", str(angleDeg))
+        return(state)
     else:
         return(state)
 
 ################################################################
 
-# World state will be single x coordinate at left edge of world
+# The flying pig moves in parabolic motion. This state tuple takes value as
+# (x coordinate, x component of velocity, y coordinate, y
+# component of velocity, time, initial x coordinate, initial y
+# coordinate) The initial x and y coordinates as well as bounds on the
+# random paramenters were set so that the entire
+# parabola could appear nicely on the display
+initState = (randint(100,500), randint(10,40), randint(100,500), randint(50,80), 0, 100, 350)
 
-# The cat moves in parabolic motion.
-initState = (100, 20, 500, 75, 0, 100, 600)
-
-# Run the simulation no faster than 60 frames per second
+# Run the simulation no faster than 100 frames per second
 frameRate = 100
 
 # Run the simulation!
