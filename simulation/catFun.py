@@ -52,11 +52,25 @@ start = time.time()
 
 # state -> image (IO)
 # draw the cat and the dog at the points determined by the state tuple
-#
+# The cat and dog start at random points moving in a random directions in
+# both x and y directions
+
+class newState:
+    x_pos_cat = 300
+    y_pos_cat = 300
+    x_vel_cat = randint(-3,3)
+    y_vel_cat = randint(-3,3)
+    x_pos_pug = 600
+    y_pos_pug = 600
+    x_vel_pug = randint(-3,3)
+    y_vel_pug = randint(-3,3)
+
+initState = newState()
+
 def updateDisplay(state):
     dw.fill(color)
-    dw.draw(catimage, (state[0], state[2]))
-    dw.draw(pugimage, (state[4], state[6]))
+    dw.draw(catimage, (state.x_pos_cat, state.y_pos_cat))
+    dw.draw(pugimage, (state.x_pos_pug, state.y_pos_pug))
 
 
 ################################################################
@@ -67,35 +81,30 @@ def updateDisplay(state):
 # 
 # state -> state
 def updateState(state):
-    if (state[4] > 622):
+    if (state.x_pos_pug > 622):
         newState5s = randint(-3,-1)
-        return(state[0]+state[1],state[1],state[2]+state[3],state[3],state[4]+newState5s,newState5s,state[6]+state[7],state[7])
-    if (state[6] > 622):
+        return(state.x_pos_cat+state.x_vel_cat,state.x_vel_cat,state.y_pos_cat+state.y_vel_cat,state.y_vel_cat,state.x_pos_pug+newState5s,newState5s,state.y_pos_pug+state.y_vel_pug,state.y_vel_pug)
+    if (state.y_pos_pug > 622):
         newState7s = randint(-3,-1)
-        return(state[0]+state[1],state[1],state[2]+state[3],state[3],state[4]+state[5],state[5],state[6]+newState7s,newState7s)
-    if (state[4] < 0):
+        return(state.x_pos_cat+state.x_vel_cat,state.x_vel_cat,state.y_pos_cat+state.y_vel_cat,state.y_vel_cat,state.x_pos_pug+state.x_vel_pug,state.x_vel_pug,state.y_pos_pug+newState7s,newState7s)
+    if (state.x_pos_pug < 0):
         newState5ss = randint(1,3)
-        return(state[0]+state[1],state[1],state[2]+state[3],state[3],state[4]+newState5ss,newState5ss,state[6]+state[7],state[7])
-    if (state[6] < 0):
+        return(state.x_pos_cat+state.x_vel_cat,state.x_vel_cat,state.y_pos_cat+state.y_vel_cat,state.y_vel_cat,state.x_pos_pug+newState5ss,newState5ss,state.y_pos_pug+state.y_vel_pug,state.y_vel_pug)
+    if (state.y_pos_pug < 0):
         newState7ss = randint(1,3)
-        return(state[0]+state[1],state[1],state[2]+state[3],state[3],state[4]+state[5],state[5],state[6]+newState7ss,newState7ss)
-    return((state[0]+state[1],state[1],state[2]+state[3],state[3],state[4]+state[5],state[5],state[6]+state[7],state[7]))
+        return(state.x_pos_cat+state.x_vel_cat,state.x_vel_cat,state.y_pos_cat+state.y_vel_cat,state.y_vel_cat,state.x_pos_pug+state.x_vel_pug,state.x_vel_pug,state.y_pos_pug+newState7ss,newState7ss)
+    return((state.x_pos_cat+state.x_vel_cat,state.x_vel_cat,state.y_pos_cat+state.y_vel_cat,state.y_vel_cat,state.x_pos_pug+state.x_vel_pug,state.x_vel_pug,state.y_pos_pug+state.y_vel_pug,state.y_vel_pug))
 
 ################################################################
 
 # Terminate the simulation when the x coord or y coord reaches the screen edge,
 # that is, when pos is less then zero or greater than the screen width
-# or height, or when the cat and the pug collide. If the cat survived
-# for less than 25 seconds, the program is not impressed. If the cat
-# survived for longer, then good job!
+# or height, or when the cat and the pug collide.
 # state -> bool
 def endState(state):
-    if ((state[0] > 622 or state[0] < 0) or (state[2] > 622 or state[2] < 0)) or (((state[4] <= state[0] <= state[4] + 128) and (state[2]-128 <= state[6] <= state[2] + 128)) or ((state[6] <= state[2] <= state[6] + 128) and (state[0]-128 <= state[4] <= state[0] + 128)) or ((state[4] <= state[0] + 128 <= state[4] + 128) and (state[2]-128 <= state[6] <= state[2] + 128)) or ((state[6] <= state[2] + 128 <= state[6] + 128) and (state[0]-128 <= state[4] <= state[0] + 128))):
+    if ((state.x_pos_cat > 622 or state.x_pos_cat < 0) or (state.y_pos_cat > 622 or state.y_pos_cat < 0)) or (((state.x_pos_pug <= state.x_pos_cat <= state.x_pos_pug + 128) and (state.y_pos_cat-128 <= state.y_pos_pug <= state.y_pos_cat + 128)) or ((state.y_pos_pug <= state.y_pos_cat <= state.y_pos_pug + 128) and (state.x_pos_cat-128 <= state.x_pos_pug <= state.x_pos_cat + 128)) or ((state.x_pos_pug <= state.x_pos_cat + 128 <= state.x_pos_pug + 128) and (state.y_pos_cat-128 <= state.y_pos_pug <= state.y_pos_cat + 128)) or ((state.y_pos_pug <= state.y_pos_cat + 128 <= state.y_pos_pug + 128) and (state.x_pos_cat-128 <= state.x_pos_pug <= state.x_pos_cat + 128))):
         stop = time.time()
-        if ((stop-start)<25):
-            print("You only let Grumpy Cat survive for", stop-start, "seconds?")
-        else:
-            print("Wow, Grumpy Cat survived for", stop-start, "seconds!")
+        print("You only let Grumpy Cat survive for", stop-start, "seconds?")
         return True
     else:
         return False
@@ -120,7 +129,7 @@ def handleEvent(state, event):
         newState3 = randint(-3,3)
         newState5 = randint(-3,3)
         newState7 = randint(-3,3)
-        return(state[0],newState1,state[2],newState3,state[4],newState5,state[6],newState7)
+        return(state.x_pos_cat,newState1,state.y_pos_cat,newState3,state.x_pos_pug,newState5,state.y_pos_pug,newState7)
     else:
         return(state)
     
@@ -128,10 +137,6 @@ def handleEvent(state, event):
 ################################################################
 
 # World state will be image at random point
-
-# The cat and dog start at random points moving in a random directions in
-# both x and y directions
-initState = (300,(randint(-3,3)),300,(randint(-3,3)),600,(randint(-3, 3)), 600, (randint(-3,3)))
 
 # Run the simulation no faster than 60 frames per second
 frameRate = 60
